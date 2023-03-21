@@ -93,6 +93,16 @@ namespace FIIPracticCars.Web.Controllers
         [HttpPost]
         public IActionResult Edit([FromForm] UpdateUserViewModel updateUserViewModel)
         {
+            if (updateUserViewModel == null)
+            {
+                return RedirectToAction("Error", new { message = "UpdateUserViewModel is null!" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(updateUserViewModel);
+            }
+
             var userDto = _userRepository.GetUser(updateUserViewModel.Id);
             if (userDto == null)
             {
@@ -156,8 +166,10 @@ namespace FIIPracticCars.Web.Controllers
             }
 
             var userDto = _userRepository.GetUser(id);
-
-            if (userDto == null) { }
+            if (userDto == null)
+            {
+                return RedirectToAction("Error", new { message = "User not found!" });
+            }
 
             var userViewModel = new UserViewModel
             {
