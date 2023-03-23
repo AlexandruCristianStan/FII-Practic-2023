@@ -1,0 +1,13 @@
+﻿@{
+  ViewData["Title"] = "Index";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (User?.Identity?.IsAuthenticated == true)
+{
+  <text>
+    Welcome @User.Identity.Name
+  </text>
+}
+
+<h1>Index</h1>
